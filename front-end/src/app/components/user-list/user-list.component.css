@@ -1,0 +1,25 @@
+/* user-list.component.css */
+.user-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.user-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.user-item span {
+  flex: 1;
+}
+
+button {
+  margin-left: 10px;
+}
+
+div{
+  margin: 10em;
+  padding: 5em;
+}

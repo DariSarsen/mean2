@@ -1,0 +1,21 @@
+mat-card{
+    margin: 2em;
+
+}
+mat-card-title{
+    color: white;
+}
+mat-card-header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2em;
+}
+mat-form-field{
+    width: 100%;
+}
+mat-card-actions{
+    display: flex;
+    justify-content: space-between;
+    margin: 2em;
+}

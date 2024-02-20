@@ -1,0 +1,16 @@
+.toolbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  a{
+    text-decoration: none;
+    color: white;
+  }
+  .right-menu {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  

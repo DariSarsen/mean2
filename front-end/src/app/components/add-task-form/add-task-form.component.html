@@ -1,0 +1,24 @@
+<mat-expansion-panel hideToggle>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Add New Task
+    </mat-panel-title>
+    <mat-panel-description>
+      
+
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <div class="forms">
+    <mat-form-field>
+      <input matInput placeholder="Title" [(ngModel)]="newTask.title">
+    </mat-form-field>
+    <mat-form-field>
+      <textarea matInput placeholder="Description" [(ngModel)]="newTask.description"></textarea>
+    </mat-form-field>
+    
+  </div>
+  <div class="button-div">
+    <button mat-raised-button color="primary" (click)="addTask()">Add Task</button>
+  </div>
+  
+</mat-expansion-panel>

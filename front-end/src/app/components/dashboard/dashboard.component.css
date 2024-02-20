@@ -1,0 +1,21 @@
+.user-info {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  .user-card {
+    width: 300px;
+    margin-top: 20px;
+  }
+
+div{
+    padding-top: 100px;
+    color:white;
+    font-size: large;
+}
+p{
+    padding: 1em;
+}

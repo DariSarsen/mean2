@@ -1,0 +1,10 @@
+<div *ngIf="currentUser" class="user-info">
+    <h1>Welcome, {{ currentUser.username }}!</h1>
+    <mat-card class="user-card">
+      <mat-card-content>
+        <p><strong>Email:</strong> {{ currentUser.email }}</p>
+        <p><strong>Age:</strong> {{ currentUser.age }}</p>
+      </mat-card-content>
+    </mat-card>
+</div>
+  

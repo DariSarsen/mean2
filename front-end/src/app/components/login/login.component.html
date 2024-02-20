@@ -1,0 +1,25 @@
+<div class="background">
+  <mat-card class="card">
+    <mat-card-header>
+      <mat-card-title>Login</mat-card-title>
+    </mat-card-header>
+  
+    <mat-card-content>
+      <form (ngSubmit)="login(email.value, password.value)" fxLayout="column">
+        <mat-form-field appearance="outline">
+          <input matInput #email placeholder="Email" required>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <input matInput type="password" #password placeholder="Password" required>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit">Login</button>
+      </form>
+
+    
+    </mat-card-content>
+    <div class="register-link">
+      Don't you have an account yet? <span class="link" [routerLink]="['/register']">Register</span>  
+    </div>
+  </mat-card>
+  
+</div> 

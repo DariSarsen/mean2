@@ -1,0 +1,30 @@
+mat-card{
+    text-align: center;
+    align-items: center;
+    color: white;
+}
+.background {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+input{
+    /* opacity: 0; */
+    color: white;
+}
+mat-form-field{
+    display: block;
+}
+mat-card-content{
+    margin-top: 2em;
+}
+.register-link{
+    padding: 2em;
+    display: block;
+}
+.link{
+    color: rgb(0, 234, 255);
+    text-decoration: underline;
+}
+  

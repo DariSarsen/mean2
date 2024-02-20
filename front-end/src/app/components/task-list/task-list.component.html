@@ -1,0 +1,20 @@
+<app-add-task-form></app-add-task-form>
+
+<div class="task-list">
+  <mat-expansion-panel hideToggle *ngFor="let task of tasks" >
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ task.title }}
+      </mat-panel-title>
+      <mat-panel-description>
+        {{ task.status }}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <p>{{ task.description }}</p>
+    <!-- <button mat-button color="primary" [routerLink]="['/tasks/' + task._id + '/edit']">Edit</button> -->
+    <div class="buttons">
+      <button mat-button color="primary" (click)="openEditTaskDialog(task._id)">Edit</button>
+      <button mat-button color="warn" (click)="deleteTask(task._id)">Delete</button>
+    </div>
+  </mat-expansion-panel>
+</div>

@@ -1,0 +1,15 @@
+<!-- user-list.component.html -->
+<div>
+  <h2>User List</h2>
+
+  <ul class="user-list">
+    <li *ngFor="let user of users" class="user-item">
+      <span>{{ user.username }}</span> 
+      <span>{{ user.email }}</span>  
+      <button mat-icon-button color="warn" (click)="deleteUser(user._id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </li>
+  </ul>
+  
+</div>

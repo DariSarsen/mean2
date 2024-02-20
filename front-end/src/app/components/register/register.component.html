@@ -1,0 +1,28 @@
+<div class="background">
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Register</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form (ngSubmit)="register(username.value, email.value, +age.value, password.value)">
+      <mat-form-field appearance="outline">
+        <input matInput #username placeholder="Username" required>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <input matInput type="email" #email placeholder="Email" required>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <input matInput type="number" #age placeholder="Age" required>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <input matInput type="password" #password placeholder="Password" required>
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit">Register</button>
+    </form>
+  </mat-card-content>
+  <div class="register-link">
+    Do you have an account?  <span class="link" [routerLink]="['/login']">Login</span>  
+  </div>
+</mat-card>
+</div>
