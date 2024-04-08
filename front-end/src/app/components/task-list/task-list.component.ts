@@ -1,25 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TaskService } from '../../services/task.service'; 
 import { MatDialog } from '@angular/material/dialog';
 import { EditTaskFormComponent } from '../edit-task-form/edit-task-form.component';
+import { WebSocketService } from '../../services/web-socket.service'; 
 
 @Component({
   selector: 'app-task-list',
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.css']
 })
-export class TaskListComponent implements OnInit {
+export class TaskListComponent implements OnInit, OnDestroy {
   tasks: any[] = []; 
 
-  constructor(private taskService: TaskService, private dialog: MatDialog) { }
+  constructor(private taskService: TaskService, private dialog: MatDialog, private webSocketService: WebSocketService) { }
 
   ngOnInit(): void {
+    this.webSocketService.connectToServer();
     this.getTasks();
     this.taskService.getTaskAddedObservable().subscribe(() => {
       this.getTasks();
     });
-    console.log('token', localStorage.getItem('token'));
-    console.log('tokenExpiration', localStorage.getItem('tokenExpiration'));
+    // console.log('token', localStorage.getItem('token'));
+    // console.log('tokenExpiration', localStorage.getItem('tokenExpiration'));
   }
 
   openEditTaskDialog(taskId: string): void {
@@ -46,5 +48,10 @@ export class TaskListComponent implements OnInit {
       .subscribe(() => {
         this.tasks = this.tasks.filter(task => task._id !== id);
       });
+  }
+
+
+  ngOnDestroy() {
+    this.webSocketService.disconnectFromServer();
   }
 }

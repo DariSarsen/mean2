@@ -36,7 +36,7 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
     const expirationTime = new Date();
-    expirationTime.setMinutes(expirationTime.getMinutes() + 1);
+    expirationTime.setHours(expirationTime.getHours() + 1);
     const token = jwt.sign({ userId: user._id, exp: Math.floor(expirationTime.getTime() / 1000) }, 'stack_mean');
     
     res.status(200).json({ message: 'Login successful', token, expirationTime, user });

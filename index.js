@@ -1,40 +1,65 @@
-const mongoose = require('mongoose');
 const express = require('express');
+const mongoose = require('mongoose');
+const morgan = require('morgan');
 const cors = require('cors');
-const bodyParser = require('body-parser');
+const socketIO = require('socket.io');
+const http = require('http');
+
 const taskRoutes = require('./routes/task');
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
+const headerMiddleware = require('./middleware/header');
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
-app.use(bodyParser.json());
+// Middleware
+app.use(express.json());
+app.use(morgan('dev'));
 
+// CORS Middleware
+const corsOptions = {
+  origin: ['http://localhost:4200', 'http://localhost:4000'],
+  methods: "*",
+  allowedHeaders: ["my-custom-header", "Authorization", "Content-Type"], 
+  credentials: true // Enable this if your front-end needs to pass credentials (cookies, etc.)
+};
+app.use(cors(corsOptions));
+app.use(headerMiddleware);
 
-app.use(cors({
-  origin:[
-    'http://localhost:4200',
-    'http://localhost:4000',
-  ]
-}));
-
-
+// Routes
 app.use('/tasks', taskRoutes);
 app.use('/auth', authRoutes);
 app.use('/management/users', userRoutes);
 
-const uri = 'mongodb+srv://darisarsen24:OPJID5BeWOQyDd69@cluster0.5majkb4.mongodb.net/tasksdb';
-
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+// mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+const uri = 'mongodb+srv://darisarsen24:OPJID5BeWOQyDd69@cluster0.5majkb4.mongodb.net/tasksdb'; 
+mongoose.connect(uri)
   .then(() => {
-    console.log('Mongoose is connected');
-    app.listen(port, () => {
-      console.log("Server is running at port: " + port);
+    const server = http.createServer(app);
+    const io = socketIO(server, {
+      cors: corsOptions 
+    });
+
+    io.on('connection', (socket) => {
+      // Handle client events
+      socket.on('event', (data) => {
+        console.log('Received data:', data);
+        socket.emit('response', { message: 'Data received successfully' });
+      });
+
+      // Handle client disconnections
+      socket.on('disconnect', () => {
+        console.log('Client disconnected');
+      });
+    });
+
+    server.listen(port, () => {
+      console.log(`Server is running on port ${port}`);
     });
   })
-  .catch(err => console.error('Error connecting to MongoDB Atlas:', err));
-
+  .catch(err => console.error('Error connecting to MongoDB:', err));
+  
 const dbConnection = mongoose.connection;
-dbConnection.on("error", (err) => console.log(`Connection error ${err}`));
-dbConnection.once("open", () => console.log("Connected to DB!"));
+dbConnection.on('error', err => console.log(`MongoDB connection error: ${err}`));
+dbConnection.once('open', () => console.log('Connected to MongoDB Atlas'));
