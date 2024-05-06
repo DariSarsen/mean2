@@ -4,8 +4,8 @@
     <a routerLink="/management/users">Users</a>
     <ng-container *ngIf="!authService.isLoggedIn(); else loggedInTemplate">
       <div class="right-menu">
-        <a mat-button routerLink="/login">Login</a>
-        <a mat-button routerLink="/register">Register</a>
+        <a mat-button routerLink="/auth/login">Login</a>
+        <a mat-button routerLink="/auth/register">Register</a>
       </div>
     </ng-container>
     <ng-template #loggedInTemplate>
@@ -15,7 +15,7 @@
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #userMenu="matMenu">
-          <button mat-menu-item routerLink="/dashboard">Profile</button>
+          <button mat-menu-item routerLink="/auth/dashboard">Profile</button>
           <button mat-menu-item (click)="logout()">Logout</button>
         </mat-menu>
       </div>

@@ -13,6 +13,20 @@ router.get('/', async (req, res) => {
     }
 });
 
+
+router.get('/task-stats', async (req, res) => {
+    try {
+        const taskStats = await Task.aggregate([
+            { $group: { _id: '$status', count: { $sum: 1 } } } 
+        ]);
+
+        res.json(taskStats);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
+
 // Получение конкретной задачи по ID
 router.get('/:id', async (req, res) => {
     try {
@@ -32,7 +46,9 @@ router.post('/', async (req, res) => {
     const newTask = new Task({
         title: req.body.title,
         description: req.body.description,
-        status: req.body.status
+        status: req.body.status,
+        createdAt: new Date(), // Добавлено поле createdAt
+        updatedAt: new Date()
     });
 
     try {
@@ -46,6 +62,7 @@ router.post('/', async (req, res) => {
 // Обновление задачи
 router.patch('/:id', async (req, res) => {
     try {
+        req.body.updatedAt = new Date(); 
         const updatedTask = await Task.findByIdAndUpdate(req.params.id, req.body, { new: true });
         if (updatedTask) {
             res.json(updatedTask);
@@ -70,5 +87,7 @@ router.delete('/:id', async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 });
+
+
 
 module.exports = router;

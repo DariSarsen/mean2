@@ -8,7 +8,6 @@ const http = require('http');
 const taskRoutes = require('./routes/task');
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
-const headerMiddleware = require('./middleware/header');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -19,13 +18,12 @@ app.use(morgan('dev'));
 
 // CORS Middleware
 const corsOptions = {
-  origin: ['http://localhost:4200', 'http://localhost:4000'],
+  origin: ['http://localhost:4200'],
   methods: "*",
   allowedHeaders: ["my-custom-header", "Authorization", "Content-Type"], 
-  credentials: true // Enable this if your front-end needs to pass credentials (cookies, etc.)
+  credentials: true 
 };
 app.use(cors(corsOptions));
-app.use(headerMiddleware);
 
 // Routes
 app.use('/tasks', taskRoutes);

@@ -10,7 +10,7 @@ import { tap, catchError } from 'rxjs/operators';
 export class AddTaskFormComponent {
   tasks: any[] = []; 
 
-  newTask: any = { title: '', description: '', status: 'не выполнена' };
+  newTask: any = { title: '', description: ''};
 
   constructor(private taskService: TaskService) { }
 
@@ -19,7 +19,7 @@ export class AddTaskFormComponent {
       .pipe(
         tap(() => {
           console.log('Task added successfully');
-          this.newTask = { title: '', description: '', status: 'не выполнена' };
+          this.newTask = { title: '', description: ''};
         }),
         catchError((error) => {
           console.error('Error adding task:', error);

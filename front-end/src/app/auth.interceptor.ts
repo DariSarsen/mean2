@@ -17,8 +17,6 @@ export class AuthInterceptor implements HttpInterceptor {
 
     if (token && expiration) {
       const tokenExpiration = new Date(expiration);
-      console.log('tokenExpiration: ', tokenExpiration)
-      console.log('new date: ', new Date())
       if (tokenExpiration <= new Date()) {
         this.authService.user = null;
         localStorage.removeItem('token');

@@ -11,6 +11,11 @@ import { WebSocketService } from '../../services/web-socket.service';
 })
 export class TaskListComponent implements OnInit, OnDestroy {
   tasks: any[] = []; 
+  taskStats: any[] = [];
+
+  selectedStatus: string = '';
+  taskStatuses: string[] = ['new', 'in progress', 'completed'];
+
 
   constructor(private taskService: TaskService, private dialog: MatDialog, private webSocketService: WebSocketService) { }
 
@@ -20,9 +25,27 @@ export class TaskListComponent implements OnInit, OnDestroy {
     this.taskService.getTaskAddedObservable().subscribe(() => {
       this.getTasks();
     });
+    this.taskService.getTaskStats().subscribe({
+      next: (stats: any[]) => {
+        this.taskStats = stats;
+        console.log("stats: ", stats);
+      },
+      error: (error) => {
+        console.error('Error fetching task stats:', error);
+      }
+    });
+    
     // console.log('token', localStorage.getItem('token'));
     // console.log('tokenExpiration', localStorage.getItem('tokenExpiration'));
   }
+
+  getFilteredTasks(): any[] {
+    if (!this.selectedStatus) {
+      return this.tasks;
+    }
+    return this.tasks.filter(task => task.status === this.selectedStatus);
+  }
+  
 
   openEditTaskDialog(taskId: string): void {
     const dialogRef = this.dialog.open(EditTaskFormComponent, {

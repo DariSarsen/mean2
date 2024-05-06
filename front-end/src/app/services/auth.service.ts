@@ -11,10 +11,11 @@ export class AuthService {
 
   constructor(private http: HttpClient) { 
     const userData = localStorage.getItem('user');
-  console.log('userData:', userData);
-    if (userData) {
+    console.log('userData:', userData);
+    // localStorage.removeItem('user');
+    if (userData !== null) {
       this.user = JSON.parse(userData);
-      console.log(this.user)
+      console.log(this.user);
     }
   }
   
@@ -24,9 +25,9 @@ export class AuthService {
   
   logout(): void {
     this.user = null;
+    console.log("this user: ", this.user)
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-
   }
 
   register(user: any): Observable<any> {
@@ -38,7 +39,7 @@ export class AuthService {
         // localStorage.setItem('user', JSON.stringify(response.user));
       }),
       catchError(error => {
-        // console.error('Error registering:', error);
+        console.error('Error registering:', error);
         throw error;
       })
     );

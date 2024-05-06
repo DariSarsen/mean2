@@ -3,7 +3,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TaskService } from '../../services/task.service';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-edit-task-form',
@@ -14,7 +14,7 @@ export class EditTaskFormComponent implements OnInit {
   editedTask: any = {};
   taskId: string | null = null;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private route: ActivatedRoute, private taskService: TaskService, private router: Router) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialog, private route: ActivatedRoute, private taskService: TaskService, private router: Router) {
     this.taskId = data.taskId
     console.log(this.taskId)
    }
@@ -24,6 +24,11 @@ export class EditTaskFormComponent implements OnInit {
       // this.taskId = params['id'];
       this.fetchTask();
     });
+  }
+
+  
+  closeDialog(): void {
+    this.dialog.closeAll();
   }
 
   fetchTask() {

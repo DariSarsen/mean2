@@ -2,6 +2,7 @@
   "name": "front-end",
   "version": "0.0.0",
   "scripts": {
+    "analyze": "ng build --stats-json && webpack-bundle-analyzer dist/front-end/browser/stats.json",    
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
@@ -47,6 +48,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~5.1.3"
+    "typescript": "~5.1.3",
+    "webpack-bundle-analyzer": "^4.10.1"
   }
 }

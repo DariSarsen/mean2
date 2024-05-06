@@ -25,10 +25,10 @@ export class TaskService {
       tap(() => this.taskAddedSubject.next())
     );
   }
+
   getTaskAddedObservable(): Observable<void> {
     return this.taskAddedSubject.asObservable();
   }
-
 
   updateTask(id: string, task: any): Observable<any> {
     const url = `${this.apiUrl}/${id}`;
@@ -38,5 +38,10 @@ export class TaskService {
   deleteTask(id: string): Observable<void> {
     const url = `${this.apiUrl}/${id}`;
     return this.http.delete<void>(url);
+  }
+  
+  getTaskStats(): Observable<any[]> {
+    const url = `${this.apiUrl}/task-stats`;
+    return this.http.get<any[]>(url);
   }
 }
